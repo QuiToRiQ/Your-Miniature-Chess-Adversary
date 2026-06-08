@@ -51,7 +51,7 @@ The board is a 3x4 grid. Pieces are represented by the following characters:
 2.  **Dropping:** Instead of moving a piece on the board, you can "drop" a captured piece from your inventory onto any empty square.
 3.  **Promotion:** If a Pawn (P) reaches the opponent's starting row, it automatically promotes to a Gold (G) piece. Captured promoted pieces revert back to their base state in your inventory.
 
-## 🚀 Installation & Flashing
+## Installation & Flashing
 
 1.  Install the [Earle F. Philhower RP2040 core](https://github.com/earlephilhower/arduino-pico) in your Arduino IDE.
 2.  Open the `.ino` file.
