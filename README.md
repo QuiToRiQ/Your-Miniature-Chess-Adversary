@@ -1,6 +1,8 @@
 # Pico Micro-Shogi (3x4 Chess)
 
-A fully-featured, miniaturized Shogi/Chess variant for the RP2040 (Raspberry Pi Pico). Played on a 3x4 grid, this game features capture-and-drop mechanics, piece promotion, AI opponents, and an auto-save system—all controlled using just the Pico's built-in `BOOTSEL` button and a 128x64 OLED display.
+A small Shogi/Chess variant that runs on a single Raspberry Pi Pico (RP2040). I wanted to see how complete a game I could fit on the most minimal hardware possible: no extra buttons, no shield, nothing but the board itself. The result is a 3x4 game with capture-and-drop, piece promotion, AI opponents, and auto-save, all driven by the Pico's built-in `BOOTSEL` button and a 128x64 OLED.
+
+The interesting constraint was input. With only one button, you can't just click a square — so every selection is made by a timed auto-scanning cursor: you wait for it to land on what you want, then press.
 
 <table align="center">
   <tr>
@@ -123,6 +125,15 @@ The full game state is written to flash (LittleFS) every turn. Unplug or reset t
     <td align="center"><img src="webp/unplug_resume.webp" width="150"><br><sub><b>Unplug and resume from saved state</b></sub></td>
   </tr>
 </table>
+
+## Notes & quirks
+
+A few things I learned or decided along the way:
+
+* **`BOOTSEL` as a game button.** It's normally just the flashing button — repurposing it as the only input was the whole point: zero extra parts. The catch is you can only read it between flash operations, which shaped the timed-scan input model.
+* **One-cell moves are deliberate.** On a 3x4 board, full-range Rook/Bishop moves would be over before they started, so the engine caps every move at a 1-cell radius while keeping each piece's *direction* rules. It keeps the game readable on a tiny screen.
+* **Portrait OLED.** The display runs in `setRotation(3)`, so the board sits above a small inventory strip rather than beside it.
+* **Animations.** Move/drop animations run for a fixed number of `steps`; I temporarily bumped them up while recording the GIFs so they're easier to follow at normal speed.
 
 ## Installation & Flashing
 
